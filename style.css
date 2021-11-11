@@ -56,6 +56,10 @@ button:hover {
     color: cadetblue;
 }
 
+.action-result-hide {
+    display: none;
+}
+
 .action-item {
     padding: 10px;
     margin: 7px 0;
