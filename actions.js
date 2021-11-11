@@ -7,21 +7,7 @@ const addActionBtn = document.getElementById('add-action');
 const getActionBtn = document.getElementById('get-action');
 
 function getActions() {
-	//chrome.storage.sync.clear();
-	chrome.storage.sync.get("actions", ({actions}) => {
-		if (actions) {
-			tempActions = calculateActionsChance(actions);
-			renderActions(tempActions);
-		} else {
-			chrome.storage.sync.set({
-				actions: [
-					{name: "Temp Action 1", chance: 10, amount: 10},
-					{name: "Temp Action 2", chance: 10, amount: 5},
-					{name: "Temp Action 3", chance: 80, amount: 34},
-				]
-			});
-		}
-	});
+	return chrome.storage.sync.get("actions");
 }
 
 actionsWrapper.addEventListener('click', (event) => {
@@ -38,8 +24,42 @@ addActionBtn.addEventListener('click', () => {
 });
 getActionBtn.addEventListener('click', () => {
 	showRandomizedAction(getAction());
-	getActions();
+	render();
 });
+
+function render() {
+	getActions()
+		.then(({actions}) => {
+			tempActions = calculateActionsChance(actions);
+			if (actions.length) {
+				const wrappedActions = actions.map(action => {
+						return (`
+						<div class="action-item">
+							<span class="action-item-name">${action.name}</span>
+							<span class="action-item-chance">${action.chance}%</span>
+							<span class="action-item-shuffle-amount">${action.amount}</span>
+							<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>&times;</span>
+						</div>
+				`);
+					}
+				);
+				actionsWrapper.innerHTML = wrappedActions.join(' ');
+			} else {
+				actionsWrapper.innerHTML = `Currently have not any actions...`;
+			}
+		});
+}
+
+function getAction() {
+	const random = Math.floor(Math.random() * 100);
+	const randomizedAction = calculateFortuneChances(tempActions).find(action => action.chance >= random);
+	tempActions.map(action => {
+		if (action.name === randomizedAction.name) action.amount++;
+	})
+
+	saveActionsToStorage(tempActions);
+	return randomizedAction;
+}
 
 function addAction(action) {
 	if (!action) return;
@@ -52,27 +72,17 @@ function addAction(action) {
 
 	newActionInputValue = '';
 	actionInput.value = '';
-	chrome.storage.sync.set({
-		actions: calculateActionsChance([...tempActions, actionObject])
-	}).then(() => getActions());
+	saveActionsToStorage(calculateActionsChance([...tempActions, actionObject]))
+		.then(_ => render());
 }
 
-function getAction() {
-	const random = Math.floor(Math.random() * 100);
-	const randomizedAction = calculateFortuneChances(tempActions).find(action => action.chance >= random);
-	tempActions.map(action => {
-		if (action.name === randomizedAction.name) action.amount++;
-	})
-
-	chrome.storage.sync.set({
-		actions: tempActions
-	});
-
-	return randomizedAction;
+function deleteAction(action) {
+	tempActions = tempActions.filter(act => act.name.split(' ').join('') !== action);
+	saveActionsToStorage(calculateActionsChance(tempActions))
+		.then(_ => render())
 }
 
 function showRandomizedAction(action) {
-	console.log(action)
 	const resultField = document.getElementById('action-result');
 
 	if (action) {
@@ -83,6 +93,10 @@ function showRandomizedAction(action) {
 			resultField.innerHTML = action.name;
 		}
 	}
+}
+
+function saveActionsToStorage(actions) {
+	return chrome.storage.sync.set({actions});
 }
 
 function calculateActionsChance(actions) {
@@ -105,31 +119,5 @@ function getPercentFromNumber(number, totalNumber) {
 	return +((number / totalNumber) * 100).toFixed(1);
 }
 
-function renderActions(actions) {
-	if (actions.length) {
-		const wrappedActions = actions.map(action => {
-				return (`
-						<div class="action-item">
-							<span class="action-item-name">${action.name}</span>
-							<span class="action-item-chance">${action.chance}%</span>
-							<span class="action-item-shuffle-amount">${action.amount}</span>
-							<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>&times;</span>
-						</div>
-				`);
-			}
-		);
-		actionsWrapper.innerHTML = wrappedActions.join(' ');
-	} else {
-		actionsWrapper.innerHTML = `Currently have not any actions...`;
-	}
-
-}
-
-function deleteAction(action) {
-	tempActions = tempActions.filter(act => act.name.split(' ').join('') !== action);
-	chrome.storage.sync.set({actions: calculateActionsChance(tempActions)});
-	renderActions(calculateActionsChance(tempActions));
-}
-
-getActions();
+render();
 
