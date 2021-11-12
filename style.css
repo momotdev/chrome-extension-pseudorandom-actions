@@ -12,12 +12,12 @@ body {
 label {
     font-size: 20px;
     font-weight: bold;
-    margin-right: 5px;
 }
 
 input[type="text"] {
     padding: 7px 10px;
     border: 1px solid #00000050;
+    margin: 0 10px;
     border-radius: 5px;
 }
 
@@ -26,20 +26,25 @@ button {
     border-radius: 5px;
     outline: none;
     padding: 5px 15px;
-    border: 1px solid #00000050;
+    border: 1px solid rgb(95, 158, 160);
     cursor: pointer;
     transition: all .3s;
 }
 
+button#get-action {
+    font-size: 20px;
+    font-weight: lighter;
+}
+
 button:hover {
-    background-color: #00000010;
+    background-color: rgba(95, 158, 160, .1);
     transition: all .3s;
 }
 
 .action-add-wrapper {
     display: flex;
-    justify-content: space-between;
     margin: 10px 0;
+    width: 100%;
 }
 
 .action-calculate-wrapper {
@@ -60,15 +65,30 @@ button:hover {
     display: none;
 }
 
+.action-list {
+    border: 1px solid rgb(95, 158, 160);
+    border-radius: 10px;
+    background: rgba(95, 158, 160, .1);
+}
+
 .action-item {
     padding: 10px;
-    margin: 7px 0;
+    margin: 0px 0;
     transition: all .3s;
+    cursor: default;
 }
 
 .action-item:hover {
     background-color: #00000010;
     transition: all .3s;
+}
+
+.action-badge {
+    user-select: none;
+    font-size: 14px;
+    padding: 0 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(95, 158, 160);
 }
 
 .action-item-name {
@@ -77,27 +97,27 @@ button:hover {
 }
 
 .action-item-chance {
-    font-size: 18px;
     margin-left: 10px;
 }
 
 .action-item-shuffle-amount {
-    font-size: 18px;
     margin-left: 10px
 }
 
 .action-item-delete {
-    font-size: 18px;
+    font-size: 14px;
     margin-left: 10px;
-    border: 1px solid #00000050;
+    border: 1px solid red;
     border-radius: 10px;
-    line-height: 0;
     padding: 0 5px;
     cursor: pointer;
     background: white;
+    opacity: .3;
+    transition: all .3s;
 }
 
 .action-item-delete:hover {
     background-color: #ffd1d1;
+    opacity: 1;
     transition: all .3s;
 }

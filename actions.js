@@ -6,10 +6,6 @@ const actionInput = document.getElementById('new-action');
 const addActionBtn = document.getElementById('add-action');
 const getActionBtn = document.getElementById('get-action');
 
-function getActions() {
-	return chrome.storage.sync.get("actions");
-}
-
 actionsWrapper.addEventListener('click', (event) => {
 	const target = event.target;
 	if (target.classList.contains('action-item-delete')) {
@@ -24,21 +20,24 @@ addActionBtn.addEventListener('click', () => {
 });
 getActionBtn.addEventListener('click', () => {
 	showRandomizedAction(getAction());
-	render();
 });
+
+function getActions() {
+	return chrome.storage.sync.get("actions");
+}
 
 function render() {
 	getActions()
 		.then(({actions}) => {
 			tempActions = calculateActionsChance(actions);
-			if (actions.length) {
-				const wrappedActions = actions.map(action => {
+			if (tempActions.length) {
+				const wrappedActions = tempActions.map(action => {
 						return (`
 						<div class="action-item">
 							<span class="action-item-name">${action.name}</span>
-							<span class="action-item-chance">${action.chance}%</span>
-							<span class="action-item-shuffle-amount">${action.amount}</span>
-							<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>&times;</span>
+							<span class="action-item-chance action-badge">${action.chance}%</span>
+							<span class="action-item-shuffle-amount action-badge">${action.amount} times</span>
+							<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>Delete</span>
 						</div>
 				`);
 					}
@@ -57,7 +56,8 @@ function getAction() {
 		if (action.name === randomizedAction.name) action.amount++;
 	})
 
-	saveActionsToStorage(tempActions);
+	saveActionsToStorage(tempActions)
+		.then(_ => render());
 	return randomizedAction;
 }
 

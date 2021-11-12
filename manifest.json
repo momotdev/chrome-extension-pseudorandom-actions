@@ -1,7 +1,7 @@
 {
   "name": "Pseudorandom Actions",
   "description": "Get a random to do action from a list with a history which affect to the chance.",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "actions-popup.html",
