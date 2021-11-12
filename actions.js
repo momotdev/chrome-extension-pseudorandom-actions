@@ -37,6 +37,7 @@ function render() {
 							<span class="action-item-name">${action.name}</span>
 							<span class="action-item-chance action-badge">${action.chance}%</span>
 							<span class="action-item-shuffle-amount action-badge">${action.amount} times</span>
+							<span class="action-item-shuffle-amount action-badge">${action.lastRollDate}</span>
 							<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>Delete</span>
 						</div>
 				`);
@@ -52,8 +53,12 @@ function render() {
 function getAction() {
 	const randomValue = getRandomInt(1, tempActions.length + 1);
 	const randomizedAction = tempActions[randomValue - 1];
+	const options = {day: 'numeric', month: 'long',  year: 'numeric', hour: '2-digit', minute: '2-digit'}
 	tempActions.map(action => {
-		if (randomizedAction && action.name === randomizedAction.name) action.amount++;
+		if (randomizedAction && action.name === randomizedAction.name) {
+			action.amount++;
+			action.lastRollDate = new Date().toLocaleDateString('ru-RU', options);
+		}
 	})
 
 	saveActionsToStorage(tempActions)
@@ -64,10 +69,13 @@ function getAction() {
 function addAction(action) {
 	if (!action) return;
 
+	const options = {day: 'numeric', month: 'long',  year: 'numeric', hour: '2-digit', minute: '2-digit'}
+
 	const actionObject = {
 		name: action,
 		chance: 0,
-		amount: 1
+		amount: 1,
+		lastRollDate: new Date().toLocaleDateString('ru-RU', options)
 	}
 
 	newActionInputValue = '';
