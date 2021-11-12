@@ -50,10 +50,10 @@ function render() {
 }
 
 function getAction() {
-	const random = Math.floor(Math.random() * 100);
-	const randomizedAction = calculateFortuneChances(tempActions).find(action => action.chance >= random);
+	const randomValue = getRandomInt(1, tempActions.length + 1);
+	const randomizedAction = tempActions[randomValue - 1];
 	tempActions.map(action => {
-		if (action.name === randomizedAction.name) action.amount++;
+		if (randomizedAction && action.name === randomizedAction.name) action.amount++;
 	})
 
 	saveActionsToStorage(tempActions)
@@ -100,19 +100,13 @@ function saveActionsToStorage(actions) {
 }
 
 function calculateActionsChance(actions) {
-	const callsAmount = actions.reduce((acc, action) => acc + action.amount, 0);
-	return actions.map(action => ({...action, chance: getPercentFromNumber(action.amount, callsAmount)}));
+	return actions.map(action => ({...action, chance: getPercentFromNumber(1, actions.length)}));
 }
 
-function calculateFortuneChances(actions) {
-	const fortuneActions = JSON.parse(JSON.stringify(actions));
-	let acc = 0;
-
-	for (const action in fortuneActions) {
-		acc += fortuneActions[action].chance;
-		fortuneActions[action].chance = acc;
-	}
-	return fortuneActions;
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min)) + min; //Max not included
 }
 
 function getPercentFromNumber(number, totalNumber) {

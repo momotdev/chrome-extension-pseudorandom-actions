@@ -76,6 +76,7 @@ button:hover {
     margin: 0px 0;
     transition: all .3s;
     cursor: default;
+    white-space: nowrap;
 }
 
 .action-item:hover {
