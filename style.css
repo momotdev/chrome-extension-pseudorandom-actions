@@ -57,8 +57,11 @@ button:hover {
 .action-result {
     font-weight: bold;
     font-size: 22px;
-    margin: 10px;
+    margin: 5px;
     color: cadetblue;
+    border: 1px solid rgb(95, 158, 160);
+    border-radius: 10px;
+    padding: 2px 7px;
 }
 
 .action-result-hide {
@@ -68,12 +71,11 @@ button:hover {
 .action-list {
     border: 1px solid rgb(95, 158, 160);
     border-radius: 10px;
-    background: rgba(95, 158, 160, .1);
+    background: rgba(95, 158, 160, .05);
 }
 
 .action-item {
-    padding: 10px;
-    margin: 0px 0;
+    padding: 9px 10px;
     transition: all .3s;
     cursor: default;
     white-space: nowrap;
@@ -84,10 +86,18 @@ button:hover {
     transition: all .3s;
 }
 
+.action-item-name-wrapper {
+    margin-bottom: 5px;
+}
+
+.action-item-details-wrapper {
+
+}
+
 .action-badge {
     user-select: none;
-    font-size: 14px;
-    padding: 0 5px;
+    font-size: 12px;
+    padding: 0 4px;
     border-radius: 10px;
     border: 1px solid rgb(95, 158, 160);
 }
@@ -97,17 +107,13 @@ button:hover {
     font-weight: bold;
 }
 
-.action-item-chance {
-    margin-left: 10px;
-}
-
 .action-item-shuffle-amount {
     margin-left: 10px
 }
 
 .action-item-delete {
     font-size: 14px;
-    margin-left: 10px;
+    margin-left: 5px;
     border: 1px solid red;
     border-radius: 10px;
     padding: 0 5px;

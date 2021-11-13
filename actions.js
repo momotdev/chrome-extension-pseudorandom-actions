@@ -34,11 +34,17 @@ function render() {
 				const wrappedActions = tempActions.map(action => {
 						return (`
 						<div class="action-item">
-							<span class="action-item-name">${action.name}</span>
-							<span class="action-item-chance action-badge">${action.chance}%</span>
-							<span class="action-item-shuffle-amount action-badge">${action.amount} times</span>
-							<span class="action-item-shuffle-amount action-badge">${action.lastRollDate}</span>
-							<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>Delete</span>
+							<div class="action-item-name-wrapper">
+								<span class="action-item-name">${action.name}</span>
+								<span class="action-item-delete" data-name=${action.name.split(' ').join('')}>&times;</span>
+							</div>
+							<div class="action-item-details-wrapper">
+								<span class="action-item-chance action-badge">Chance: ${action.chance}%</span>
+								<span class="action-item-shuffle-amount action-badge">${action.amount} times</span>
+								<span class="action-item-shuffle-amount action-badge">${action.lastRollDate}</span>
+							</div>
+							
+							
 						</div>
 				`);
 					}
@@ -53,7 +59,7 @@ function render() {
 function getAction() {
 	const randomValue = getRandomInt(1, tempActions.length + 1);
 	const randomizedAction = tempActions[randomValue - 1];
-	const options = {day: 'numeric', month: 'long',  year: 'numeric', hour: '2-digit', minute: '2-digit'}
+	const options = {day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'}
 	tempActions.map(action => {
 		if (randomizedAction && action.name === randomizedAction.name) {
 			action.amount++;
@@ -69,7 +75,7 @@ function getAction() {
 function addAction(action) {
 	if (!action) return;
 
-	const options = {day: 'numeric', month: 'long',  year: 'numeric', hour: '2-digit', minute: '2-digit'}
+	const options = {day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'}
 
 	const actionObject = {
 		name: action,
