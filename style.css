@@ -7,6 +7,7 @@
 body {
     padding: 20px;
     min-width: 550px;
+    background: #f2f2f2;
 }
 
 label {
@@ -22,7 +23,7 @@ input[type="text"] {
 }
 
 button {
-    background-color: transparent;
+    background-color:#ffffff;
     border-radius: 5px;
     outline: none;
     padding: 5px 15px;
@@ -62,6 +63,7 @@ button:hover {
     border: 1px solid rgb(95, 158, 160);
     border-radius: 10px;
     padding: 2px 7px;
+    background-color: white;
 }
 
 .action-result-hide {
@@ -71,7 +73,7 @@ button:hover {
 .action-list {
     border: 1px solid rgb(95, 158, 160);
     border-radius: 10px;
-    background: rgba(95, 158, 160, .05);
+    background: #ffffff;
 }
 
 .action-item {
@@ -98,7 +100,6 @@ button:hover {
     user-select: none;
     font-size: 12px;
     padding: 0 4px;
-    border-radius: 10px;
     border: 1px solid rgb(95, 158, 160);
 }
 
