@@ -10,4 +10,5 @@ chrome.contextMenus.onClicked.addListener((object, tab) => {
 		url : "chrome-extension://hgegehjinijclkkmkefigecnlhpjkojo/actions-popup.html",
 		focused : true,
 		type : "popup"});
+	console.log(object, tab);
 })

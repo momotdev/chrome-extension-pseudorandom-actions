@@ -7,7 +7,8 @@
 body {
     padding: 20px;
     min-width: 550px;
-    background: #f2f2f2;
+    background: #1abc9c;
+    color: #ecf0f1;
 }
 
 label {
@@ -20,16 +21,20 @@ input[type="text"] {
     border: 1px solid #00000050;
     margin: 0 10px;
     border-radius: 5px;
+    outline: none;
+    box-shadow: 3px 3px 10px #00000050;
 }
 
 button {
-    background-color:#ffffff;
+    color: white;
+    background-color: #16a085;
     border-radius: 5px;
     outline: none;
     padding: 5px 15px;
-    border: 1px solid rgb(95, 158, 160);
+    border: 1px solid #00000050;
     cursor: pointer;
     transition: all .3s;
+    box-shadow: 3px 3px 10px #00000050;
 }
 
 button#get-action {
@@ -38,7 +43,7 @@ button#get-action {
 }
 
 button:hover {
-    background-color: rgba(95, 158, 160, .1);
+    background-color: #27ae60;
     transition: all .3s;
 }
 
@@ -59,8 +64,8 @@ button:hover {
     font-weight: bold;
     font-size: 22px;
     margin: 5px;
-    color: cadetblue;
-    border: 1px solid rgb(95, 158, 160);
+    color: #27ae60;
+    border: 1px solid #16a085;
     border-radius: 10px;
     padding: 2px 7px;
     background-color: white;
@@ -71,9 +76,10 @@ button:hover {
 }
 
 .action-list {
-    border: 1px solid rgb(95, 158, 160);
+    border: 1px solid #16a085;
     border-radius: 10px;
     background: #ffffff;
+    color: #34495e;
 }
 
 .action-item {
@@ -92,15 +98,11 @@ button:hover {
     margin-bottom: 5px;
 }
 
-.action-item-details-wrapper {
-
-}
-
 .action-badge {
     user-select: none;
     font-size: 12px;
     padding: 0 4px;
-    border: 1px solid rgb(95, 158, 160);
+    border: 1px solid #16a085;
 }
 
 .action-item-name {
@@ -115,17 +117,17 @@ button:hover {
 .action-item-delete {
     font-size: 14px;
     margin-left: 5px;
-    border: 1px solid red;
+    border: 1px solid #c0392b;
     border-radius: 10px;
     padding: 0 5px;
     cursor: pointer;
     background: white;
-    opacity: .3;
+    opacity: .4;
     transition: all .3s;
 }
 
 .action-item-delete:hover {
-    background-color: #ffd1d1;
+    background-color: #e74c3c;
     opacity: 1;
     transition: all .3s;
 }
